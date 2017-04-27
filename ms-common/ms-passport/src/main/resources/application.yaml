@@ -18,7 +18,25 @@ github:
     clientAuthenticationScheme: form
   resource:
     userInfoUri: https://api.github.com/user
+gmail:
+  client:
+    clientId: 76651853240-45iaiqdj8opblareobcf8f4ueeu982ki.apps.googleusercontent.com
+    clientSecret: 9f4cb3w9tydaTR7QgsZbBKV8
+    accessTokenUri: https://accounts.google.com/o/oauth2/token
+    userAuthorizationUri: https://accounts.google.com/o/oauth2/auth
+    clientAuthenticationScheme: form
+    scope: profile email
+  resource:
+    userInfoUri: https://www.googleapis.com/userinfo/v2/me
 
 logging:
   level:
     org.springframework.security: DEBUG
+
+security:
+  oauth2:
+    client:
+      client-id: acme
+      client-secret: acmesecret
+      scope: read,write
+      auto-approve-scopes: '.*'
