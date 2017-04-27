@@ -1,0 +1,47 @@
+
+<div class="ui grid" >
+    <div class="three wide column"></div>
+    <div class="ten wide column">
+        <div class="ui segment">
+            <div class="ui minimal comments">
+                <h3 class="ui dividing header">留言</h3>
+
+                {{#post.comments.data}}
+                    <div class="comment">
+                    <span class="avatar">
+                      <img src="{{author.avatar}}">
+                    </span>
+                        <div class="content">
+                            <a class="author" href="/posts?author={{author.id}}">
+                                {{author.username}}
+                            </a>
+                            <div class="metadata">
+                                <span class="date">{{createdAt }}</span>
+                            </div>
+                            <div class="text">{{content }}</div>
+
+                            {{#owner author.id currentUser.id}}
+                                <div class="actions">
+                                    <form class="ui reply form" method="post"
+                                          action="/posts/{{postId}}/comments/{{id}}/remove">
+                                        <input type="submit" class="ui icon button" value="删除" />
+                                    </form>
+                                </div>
+                            {{/owner}}
+                        </div>
+                    </div>
+                {{/post.comments.data}}
+
+                {{#currentUser}}
+                    <form class="ui reply form" method="post"
+                          action="/posts/{{post.id}}/comments">
+                        <div class="field">
+                            <textarea name="content"></textarea>
+                        </div>
+                        <input type="submit" class="ui icon button" value="留言" />
+                    </form>
+                {{/currentUser}}
+            </div>
+        </div>
+    </div>
+</div>

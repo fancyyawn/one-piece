@@ -1,0 +1,47 @@
+{{#partial "title"}}
+    <title>用户登录</title>
+{{/partial}}
+
+{{#partial "content"}}
+    <div class="ui grid">
+        <div class="four wide column"></div>
+        <div class="eight wide column">
+
+            <form class="ui form segment"
+                  method="post" action="/signup"
+                  enctype="multipart/form-data">
+                <div class="field required">
+                    <label for="username">用户名</label>
+                    <input placeholder="用户名" type="text" name="username" id="username">
+                </div>
+                <div class="field required">
+                    <label for="password">密码</label>
+                    <input placeholder="密码" type="password" name="password" id="password">
+                </div>
+                <div class="field required">
+                    <label for="repassword">重复密码</label>
+                    <input placeholder="重复密码" type="password" name="repassword" id="repassword">
+                </div>
+                <div class="field required">
+                    <label for="gender">性别</label>
+                    <select class="ui compact selection dropdown" name="gender" id="gender">
+                        <option value="m">男</option>
+                        <option value="f">女</option>
+                        <option value="x">保密</option>
+                    </select>
+                </div>
+                <div class="field required">
+                    <label for="email">邮箱</label>
+                    <input type="email" name="email" id="email">
+                </div>
+                <div class="field required">
+                    <label for="bio">个人简介</label>
+                    <textarea name="bio" rows="5" id="bio"></textarea>
+                </div>
+                <input type="submit" class="ui button fluid" value="注册">
+            </form>
+        </div>
+    </div>
+{{/partial}}
+
+{{> layout/default}}

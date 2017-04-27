@@ -1,0 +1,31 @@
+{{#partial "title"}}
+    <title>博客列表</title>
+{{/partial}}
+
+{{#partial "content"}}
+
+    {{#posts}}
+        <div class="post-content">
+            <div class="ui grid">
+                <div class="three wide column">
+                    <a class="avatar"
+                       href="/posts?author={{author.id}}"
+                       data-title="{{author.username}}"
+                       data-content="{{author.bio}}">
+                        <img class="ui circular image" src="{{author.avatar}}">
+                        <br/>
+                        <span>{{author.username}}</span>
+                    </a>
+                </div>
+                <div class="ten wide column">
+                    <div class="ui segment">
+                        <h3><a href="/posts/{{id}}">{{title}}</a></h3>
+                        <pre>{{content}}</pre>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {{/posts}}
+{{/partial}}
+
+{{> layout/default}}

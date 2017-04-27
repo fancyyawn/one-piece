@@ -1,0 +1,34 @@
+<div class="nav">
+    <div class="ui grid">
+        <div class="three wide column"></div>
+        <div class="ten wide column">
+            <a href="/posts"><h1>个人博客</h1></a>
+        </div>
+    </div>
+</div>
+
+<div class="nav-setting">
+    <div class="ui buttons">
+        <div class="ui floating dropdown button">
+            <i class="icon bars"></i>
+            {{#currentUser}}
+                <div class="menu">
+                    <a class="item" href="/posts?author={{currentUser.id}}">个人主页</a>
+                    <div class="divider"></div>
+                    <a class="item" href="/posts/create">发表文章</a>
+                    <a class="item">
+                        <form action="/logout" method="post">
+                            <button class="ui green basic button" type="submit">登出</button>
+                        </form>
+                    </a>
+                </div>
+            {{/currentUser}}
+            {{^currentUser}}
+                <div class="menu">
+                    <a class="item" href="/login">登录</a>
+                    <a class="item" href="/signup">注册</a>
+                </div>
+            {{/currentUser}}
+        </div>
+    </div>
+</div>

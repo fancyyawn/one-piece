@@ -1,0 +1,10 @@
+spring.config.name: config-server
+
+spring:
+  cloud:
+    config:
+      server:
+        git:
+          uri: https://github.com/fancyyawn/config-repo
+server:
+  port: 8001

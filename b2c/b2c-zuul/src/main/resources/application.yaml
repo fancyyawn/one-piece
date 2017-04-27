@@ -1,0 +1,17 @@
+server:
+  port: 10002
+
+spring:
+  application:
+    name: b2c-zuul
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8000/eureka
+
+zuul:
+  routes:
+    first:
+      path: /v1/cart/**
+      url: http://localhost:8080/v1/cart/

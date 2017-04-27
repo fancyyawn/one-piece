@@ -1,0 +1,24 @@
+{{#partial "title"}}
+    <title>用户登录</title>
+{{/partial}}
+
+{{#partial "content"}}
+    <div class="ui grid">
+        <div class="four wide column"></div>
+        <div class="eight wide column">
+            <form class="ui form segment" method="post" action="/login">
+                <div class="field required">
+                    <label >用户名</label>
+                    <input placeholder="用户名" type="text" name="username"/>
+                </div>
+                <div class="field required">
+                    <label>密码</label>
+                    <input placeholder="密码" type="password" name="password"/>
+                </div>
+                <input type="submit" class="ui button fluid" value="登录"/>
+            </form>
+        </div>
+    </div>
+{{/partial}}
+
+{{> layout/default}}

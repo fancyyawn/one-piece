@@ -1,0 +1,52 @@
+
+{{#partial "title"}}
+    <title>博客列表</title>
+{{/partial}}
+
+{{#partial "content"}}
+    <div class="post-content">
+        <div class="ui grid">
+            <div class="three wide column">
+                <a class="avatar"
+                   href="/posts?author={{post.author.id}}"
+                   data-title="{{post.author.username}}"
+                   data-content="{{post.author.bio}}">
+                    <img class="ui circular image" src="{{post.author.avatar}}">
+                    <br/>
+                    <span>{{post.author.username}}</span>
+                </a>
+            </div>
+            <div class="ten wide column">
+                <div class="ui segment">
+                    <h3><a href="/posts/{{post.id}}">{{post.title}}</a></h3>
+                    <pre>{{post.content}}</pre>
+                    <div>
+                        <span class="tag">{{post.createdAt}}</span>
+                        <span class="tag right">
+                            <span>浏览({{post.pv}})</span>
+                            <span>留言({{post.comments.total}})</span>
+                            {{#owner post.author.id currentUser.id }}
+                                <div class="ui inline dropdown">
+                                <div class="text"></div>
+                                <i class="dropdown icon"></i>
+                                <div class="menu">
+                                    <div class="item">
+                                        <a class="ui button" href="/posts/{{post.id}}/edit">编辑</a> </div>
+                                    <div class="item">
+                                        <form method="post" action="/posts/{{post.id}}/remove">
+                                            <input type="submit" class="ui button" value="删除" />
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                            {{/owner}}
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {{> posts/comment}}
+{{/partial}}
+
+{{> layout/default}}

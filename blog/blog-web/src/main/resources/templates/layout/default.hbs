@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    {{#block "title"}}
+        <title>个人博客</title>
+    {{/block}}
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="//cdn.bootcss.com/semantic-ui/2.1.8/semantic.min.css">
+    <link rel="stylesheet" href="/static/css/style.css">
+    <script src="//cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
+    <script src="//cdn.bootcss.com/semantic-ui/2.1.8/semantic.min.js"></script>
+</head>
+<body>
+
+{{> layout/nav}}
+{{> layout/msg}}
+
+{{#block "content"}}
+
+{{/block}}
+
+<script type="text/javascript">
+    // 点击按钮弹出下拉框
+    $('.ui.dropdown').dropdown();
+    // 鼠标悬浮在头像上，弹出气泡提示框
+    $('.post-content .avatar').popup({
+        inline: true,
+        position: 'bottom right',
+        lastResort: 'bottom right',
+    });
+</script>
+</body>
+</html>

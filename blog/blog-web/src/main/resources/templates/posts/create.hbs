@@ -1,0 +1,34 @@
+{{#partial "title"}}
+    <title>博客列表</title>
+{{/partial}}
+
+{{#partial "content"}}
+    <div class="ui grid">
+        <div class="three wide column">
+            <a class="avatar"
+               href="/posts?author={{currentUser.id}}"
+               data-title="{{currentUser.username}}"
+               data-content="{{currentUser.bio}}">
+                <img class="ui circular image" src="{{currentUser.avatar}}">
+                <br/>
+                <span>{{currentUser.username}}</span>
+            </a>
+        </div>
+
+        <div class="ten wide column">
+            <form class="ui form segment" method="post" action="/posts/create">
+                <div class="field required">
+                    <label>标题</label>
+                    <input type="text" name="title">
+                </div>
+                <div class="field required">
+                    <label>内容</label>
+                    <textarea name="content" rows="15"></textarea>
+                </div>
+                <input type="submit" class="ui button" value="发布">
+            </form>
+        </div>
+    </div>
+{{/partial}}
+
+{{> layout/default}}
