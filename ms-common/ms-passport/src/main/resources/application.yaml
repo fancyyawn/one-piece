@@ -18,7 +18,7 @@ github:
     clientAuthenticationScheme: form
   resource:
     userInfoUri: https://api.github.com/user
-gmail:
+google:
   client:
     clientId: 76651853240-45iaiqdj8opblareobcf8f4ueeu982ki.apps.googleusercontent.com
     clientSecret: 9f4cb3w9tydaTR7QgsZbBKV8
