@@ -4,11 +4,11 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>top.zhacker.ms</groupId>
-	<artifactId>ms-passport</artifactId>
+	<artifactId>auth-oauth2-session</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
-	<name>ms-passport</name>
+	<name>auth-oauth2-session</name>
 	<description>micro-service passport</description>
 
 	<parent>

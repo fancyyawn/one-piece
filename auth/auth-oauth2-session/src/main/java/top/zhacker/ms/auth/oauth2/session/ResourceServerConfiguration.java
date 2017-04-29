@@ -1,4 +1,4 @@
-package top.zhacker.ms;
+package top.zhacker.ms.auth.oauth2.session;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;

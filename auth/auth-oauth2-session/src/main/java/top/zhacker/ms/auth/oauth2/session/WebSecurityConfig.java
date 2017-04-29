@@ -1,4 +1,4 @@
-package top.zhacker.ms;
+package top.zhacker.ms.auth.oauth2.session;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.security.SecurityProperties;

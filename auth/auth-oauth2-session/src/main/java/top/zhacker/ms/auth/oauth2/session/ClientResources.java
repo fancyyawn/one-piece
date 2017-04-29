@@ -1,4 +1,4 @@
-package top.zhacker.ms;
+package top.zhacker.ms.auth.oauth2.session;
 
 import org.springframework.boot.autoconfigure.security.oauth2.resource.ResourceServerProperties;
 import org.springframework.boot.context.properties.NestedConfigurationProperty;
