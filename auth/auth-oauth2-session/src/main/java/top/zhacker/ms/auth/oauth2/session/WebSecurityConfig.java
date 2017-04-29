@@ -1,6 +1,7 @@
 package top.zhacker.ms.auth.oauth2.session;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.security.SecurityProperties;
 import org.springframework.boot.autoconfigure.security.oauth2.resource.UserInfoTokenServices;
 import org.springframework.boot.context.properties.ConfigurationProperties;
@@ -35,8 +36,12 @@ import java.util.List;
 @EnableOAuth2Client
 @EnableAuthorizationServer
 @Order(SecurityProperties.ACCESS_OVERRIDE_ORDER)
-@Import(ResourceServerConfiguration.class)
+@Import({ResourceServerConfiguration.class, ThirdLoginConfig.class})
 public class WebSecurityConfig  extends WebSecurityConfigurerAdapter {
+
+    @Autowired
+    @Qualifier("ssoFilter")
+    private Filter ssoFilter;
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -46,7 +51,7 @@ public class WebSecurityConfig  extends WebSecurityConfigurerAdapter {
                 .authenticationEntryPoint(new LoginUrlAuthenticationEntryPoint("/")).and().logout()
                 .logoutSuccessUrl("/").permitAll().and().csrf()
                 .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse()).and()
-                .addFilterBefore(ssoFilter(), BasicAuthenticationFilter.class);
+                .addFilterBefore(ssoFilter, BasicAuthenticationFilter.class);
         // @formatter:on
     }
 
@@ -59,48 +64,5 @@ public class WebSecurityConfig  extends WebSecurityConfigurerAdapter {
         return registration;
     }
 
-    @Bean
-    @ConfigurationProperties("github")
-    public ClientResources github() {
-        return new ClientResources();
-    }
-
-    @Bean
-    @ConfigurationProperties("facebook")
-    public ClientResources facebook() {
-        return new ClientResources();
-    }
-
-    @Bean
-    @ConfigurationProperties("gooogle")
-    public ClientResources google() {
-        return new ClientResources();
-    }
-
-
-    private Filter ssoFilter() {
-        CompositeFilter filter = new CompositeFilter();
-        List<Filter> filters = new ArrayList<>();
-        filters.add(ssoFilter(facebook(), "/login/facebook"));
-        filters.add(ssoFilter(github(), "/login/github"));
-        filters.add(ssoFilter(google(), "/login/google"));
-        filter.setFilters(filters);
-        return filter;
-    }
-
-
-    @Autowired
-    OAuth2ClientContext oauth2ClientContext;
-
-
-    private Filter ssoFilter(ClientResources client, String path) {
-        OAuth2ClientAuthenticationProcessingFilter filter = new OAuth2ClientAuthenticationProcessingFilter(path);
-        OAuth2RestTemplate template = new OAuth2RestTemplate(client.getClient(), oauth2ClientContext);
-        filter.setRestTemplate(template);
-        UserInfoTokenServices tokenServices = new UserInfoTokenServices(client.getResource().getUserInfoUri(), client.getClient().getClientId());
-        tokenServices.setRestTemplate(template);
-        filter.setTokenServices(tokenServices);
-        return filter;
-    }
 
 }
