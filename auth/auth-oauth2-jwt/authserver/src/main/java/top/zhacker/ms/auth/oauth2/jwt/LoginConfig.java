@@ -1,0 +1,58 @@
+package top.zhacker.ms.auth.oauth2.jwt;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.boot.web.servlet.FilterRegistrationBean;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Import;
+import org.springframework.core.annotation.Order;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.oauth2.client.filter.OAuth2ClientContextFilter;
+import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
+
+import javax.servlet.Filter;
+
+@Configuration
+@Order(-20)
+@Import(ThirdLoginConfig.class)
+public class LoginConfig extends WebSecurityConfigurerAdapter {
+
+		@Autowired
+		@Qualifier("ssoFilter")
+		private Filter ssoFilter;
+
+		@Autowired
+		private AuthenticationManager authenticationManager;
+
+		@Override
+		protected void configure(HttpSecurity http) throws Exception {
+			// @formatter:off
+			http
+				.formLogin().loginPage("/login").permitAll()
+			.and()
+				.requestMatchers().antMatchers("/login","/login/facebook","/login/github", "/oauth/authorize", "/oauth/confirm_access")
+			.and()
+				.authorizeRequests().anyRequest().authenticated()
+			.and()
+				.addFilterBefore(ssoFilter, BasicAuthenticationFilter.class);
+			// @formatter:on
+		}
+
+		@Override
+		protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+			auth.parentAuthenticationManager(authenticationManager);
+		}
+
+
+		@Bean
+		public FilterRegistrationBean oauth2ClientFilterRegistration(OAuth2ClientContextFilter filter) {
+			FilterRegistrationBean registration = new FilterRegistrationBean();
+			registration.setFilter(filter);
+			registration.setOrder(-100);
+			return registration;
+		}
+	}

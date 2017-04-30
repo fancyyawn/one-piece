@@ -1,6 +1,6 @@
-server:
-  port: 9999
-  context-path: /client
+server.port: 9999
+server.contextPath: /client
+
 security:
   oauth2:
     client:

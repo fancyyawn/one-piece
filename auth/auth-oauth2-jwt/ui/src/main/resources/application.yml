@@ -1,3 +1,6 @@
+server.port: 9999
+server.contextPath: /client
+
 debug: true
 
 spring:
@@ -10,8 +13,8 @@ security:
     password: none
   oauth2:
     client:
-      accessTokenUri: http://localhost:9999/uaa/oauth/token
-      userAuthorizationUri: http://localhost:9999/uaa/oauth/authorize
+      accessTokenUri: http://localhost:8080/oauth/token
+      userAuthorizationUri: http://localhost:8080/oauth/authorize
       clientId: acme
       clientSecret: acmesecret
     resource:
@@ -28,7 +31,7 @@ zuul:
       url: http://localhost:9000/resource
     user:
       path: /user/**
-      url: http://localhost:9999/uaa/user
+      url: http://localhost:8080/user
 
 logging:
   level:

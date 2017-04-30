@@ -42,5 +42,8 @@ function($rootScope, $http, $location, $route) {
 	var self = this;
 	$http.get('resource/').then(function(response) {
 		self.greeting = response.data;
-	})
+	});
+	$http.get("user/").then(function (response) {
+		self.userinfo = response;
+    });
 });
