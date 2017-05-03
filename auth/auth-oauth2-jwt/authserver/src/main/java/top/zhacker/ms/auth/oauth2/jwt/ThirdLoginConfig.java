@@ -1,6 +1,5 @@
 package top.zhacker.ms.auth.oauth2.jwt;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.security.oauth2.resource.UserInfoTokenServices;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
@@ -44,22 +43,17 @@ public class ThirdLoginConfig {
 
 
     @Bean
-    public Filter ssoFilter() {
+    public Filter ssoFilter(OAuth2ClientContext oauth2ClientContext) {
         CompositeFilter filter = new CompositeFilter();
         List<Filter> filters = new ArrayList<>();
-        filters.add(ssoFilter(facebook(), "/login/facebook"));
-        filters.add(ssoFilter(github(), "/login/github"));
-        filters.add(ssoFilter(google(), "/login/google"));
+        filters.add(ssoFilter(oauth2ClientContext, facebook(), "/login/facebook"));
+        filters.add(ssoFilter(oauth2ClientContext, github(), "/login/github"));
+        filters.add(ssoFilter(oauth2ClientContext, google(), "/login/google"));
         filter.setFilters(filters);
         return filter;
     }
 
-
-    @Autowired
-    OAuth2ClientContext oauth2ClientContext;
-
-
-    private Filter ssoFilter(ClientResources client, String path) {
+    private Filter ssoFilter(OAuth2ClientContext oauth2ClientContext, ClientResources client, String path) {
         OAuth2ClientAuthenticationProcessingFilter filter = new OAuth2ClientAuthenticationProcessingFilter(path);
         OAuth2RestTemplate template = new OAuth2RestTemplate(client.getClient(), oauth2ClientContext);
         filter.setRestTemplate(template);

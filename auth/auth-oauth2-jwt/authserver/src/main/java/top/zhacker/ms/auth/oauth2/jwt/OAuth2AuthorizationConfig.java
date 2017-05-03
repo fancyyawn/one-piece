@@ -17,43 +17,36 @@ import java.security.KeyPair;
 
 @Configuration
 @EnableAuthorizationServer
-public class OAuth2AuthorizationConfig extends
-		AuthorizationServerConfigurerAdapter {
+public class OAuth2AuthorizationConfig extends AuthorizationServerConfigurerAdapter {
 
-		@Autowired
-		private AuthenticationManager authenticationManager;
+    @Autowired
+    private AuthenticationManager authenticationManager;
 
-		@Bean
-		public JwtAccessTokenConverter jwtAccessTokenConverter() {
-			JwtAccessTokenConverter converter = new JwtAccessTokenConverter();
-			KeyPair keyPair = new KeyStoreKeyFactory(
-					new ClassPathResource("keystore.jks"), "foobar".toCharArray())
-					.getKeyPair("test");
-			converter.setKeyPair(keyPair);
-			return converter;
-		}
+    @Override
+    public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
+        clients.inMemory()
+                .withClient("acme")
+                .secret("acmesecret")
+                .authorizedGrantTypes("authorization_code", "refresh_token", "password")
+                .scopes("openid");
+    }
 
-		@Override
-		public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
-			clients.inMemory()
-					.withClient("acme")
-					.secret("acmesecret")
-					.authorizedGrantTypes("authorization_code", "refresh_token",
-							"password").scopes("openid");
-		}
+    @Override
+    public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
+        endpoints.authenticationManager(authenticationManager).accessTokenConverter(jwtAccessTokenConverter());
+    }
 
-		@Override
-		public void configure(AuthorizationServerEndpointsConfigurer endpoints)
-				throws Exception {
-			endpoints.authenticationManager(authenticationManager).accessTokenConverter(
-					jwtAccessTokenConverter());
-		}
+    @Bean
+    public JwtAccessTokenConverter jwtAccessTokenConverter() {
+        JwtAccessTokenConverter converter = new JwtAccessTokenConverter();
+        KeyPair keyPair = new KeyStoreKeyFactory(new ClassPathResource("keystore.jks"), "foobar".toCharArray()).getKeyPair("test");
+        converter.setKeyPair(keyPair);
+        return converter;
+    }
 
-		@Override
-		public void configure(AuthorizationServerSecurityConfigurer oauthServer)
-				throws Exception {
-			oauthServer.tokenKeyAccess("permitAll()").checkTokenAccess(
-					"isAuthenticated()");
-		}
+    @Override
+    public void configure(AuthorizationServerSecurityConfigurer oauthServer) throws Exception {
+        oauthServer.tokenKeyAccess("permitAll()").checkTokenAccess("isAuthenticated()");
+    }
 
-	}
+}

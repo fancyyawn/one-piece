@@ -40,10 +40,10 @@ function($rootScope, $http, $location, $route) {
 
 }).controller('home', function($http) {
 	var self = this;
-	$http.get('resource/').then(function(response) {
+	$http.get('resource/greeting').then(function(response) {
 		self.greeting = response.data;
 	});
-	$http.get("user/").then(function (response) {
+	$http.get("user").then(function (response) {
 		self.userinfo = response;
     });
 });

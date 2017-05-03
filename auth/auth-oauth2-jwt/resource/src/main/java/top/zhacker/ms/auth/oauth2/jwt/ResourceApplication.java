@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 @EnableResourceServer
 public class ResourceApplication {
 
-	@RequestMapping("/")
+	@RequestMapping("/greeting")
 	public Message home() {
 		return new Message("Hello World");
 	}
