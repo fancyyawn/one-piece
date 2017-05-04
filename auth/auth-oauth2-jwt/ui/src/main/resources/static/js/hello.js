@@ -46,6 +46,9 @@ function($rootScope, $http, $location, $route) {
     $http.get("user").then(function (response) {
         self.userinfo = response;
     });
+    $http.get("resource/token").then(function (response) {
+		console.log(response);
+    });
     self.fooRead = function () {
         $http.get('resource/foo').then(function(response) {
             self.foo = response.data;
