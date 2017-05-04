@@ -24,7 +24,7 @@ public class ApplicationTests {
 
 	@Test
 	public void resourceLoads() {
-		ResponseEntity<String> response = template.getForEntity("http://localhost:{port}/resource/", String.class, port);
+		ResponseEntity<String> response = template.getForEntity("http://localhost:{port}/api/", String.class, port);
 		assertEquals(HttpStatus.UNAUTHORIZED, response.getStatusCode());
 		String auth = response.getHeaders().getFirst("WWW-Authenticate");
 		assertTrue("Wrong header: " + auth , auth.startsWith("Bearer"));

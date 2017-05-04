@@ -45,7 +45,7 @@ public class ApplicationTests {
 	@Test
 	public void resourceEndpointProtected() {
 		ResponseEntity<String> response = template.getForEntity("http://localhost:"
-				+ port + "/resource", String.class);
+				+ port + "/api", String.class);
 		assertEquals(HttpStatus.FOUND, response.getStatusCode());
 		assertEquals("http://localhost:" + port + "/login", response.getHeaders()
 				.getLocation().toString());

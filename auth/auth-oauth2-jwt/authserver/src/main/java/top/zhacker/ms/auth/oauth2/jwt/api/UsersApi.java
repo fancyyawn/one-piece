@@ -1,4 +1,4 @@
-package top.zhacker.ms.auth.oauth2.jwt;
+package top.zhacker.ms.auth.oauth2.jwt.api;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;

@@ -43,7 +43,15 @@ function($rootScope, $http, $location, $route) {
 	$http.get('resource/greeting').then(function(response) {
 		self.greeting = response.data;
 	});
-	$http.get("user").then(function (response) {
-		self.userinfo = response;
+    $http.get("user").then(function (response) {
+        self.userinfo = response;
     });
+    self.fooRead = function () {
+        $http.get('resource/foo').then(function(response) {
+            self.foo = response.data;
+        });
+    };
+	self.fooWrite = function () {
+		$http.post("resource/foo", {});
+    }
 });

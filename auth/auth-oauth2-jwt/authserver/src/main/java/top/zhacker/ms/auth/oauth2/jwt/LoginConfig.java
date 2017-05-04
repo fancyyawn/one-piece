@@ -21,35 +21,36 @@ import javax.servlet.Filter;
 
 @Configuration
 @Order(SecurityProperties.ACCESS_OVERRIDE_ORDER)
-@Import(ThirdLoginConfig.class)
+@Import(LoginThirdConfig.class)
 public class LoginConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     @Qualifier("ssoFilter")
     private Filter ssoFilter;
 
-    @Autowired
-    private AuthenticationManager authenticationManager;
-
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         // @formatter:off
         http
-                .authorizeRequests().antMatchers("/login**").permitAll()
+                .authorizeRequests()
+                .antMatchers("/login**").permitAll()
                 .anyRequest().authenticated()
                 .and()
-                .formLogin().loginPage("/login").permitAll()
+                .formLogin()
+                .loginPage("/login").permitAll()
                 .defaultSuccessUrl("/user")
                 .and()
                 .addFilterBefore(ssoFilter, UsernamePasswordAuthenticationFilter.class);
         // @formatter:on
     }
 
+    @Autowired
+    private AuthenticationManager authenticationManager;
+
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.parentAuthenticationManager(authenticationManager);
     }
-
 
     @Bean
     public FilterRegistrationBean oauth2ClientFilterRegistration(OAuth2ClientContextFilter filter) {
