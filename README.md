@@ -108,7 +108,7 @@ rxjava使用示例，包含spring-cloud-stream-reactive示例。
 。。。
 
 相关术语：
-DCI：对象的Data数据, 对象使用的Context场景, 对象的Interaction交互行为三者简称
-CQRS：读写分离架构
-EDA：事件驱动架构
+* DCI：对象的Data数据, 对象使用的Context场景, 对象的Interaction交互行为三者简称
+* CQRS：读写分离架构
+* EDA：事件驱动架构
 
