@@ -1,0 +1,8 @@
+spring.datasource:
+  url: jdbc:mysql://localhost:3306/learn-batch?characterEncoding=UTF-8&useSSL=false
+  username: root
+  password: anywhere
+  driverClassName: com.mysql.jdbc.Driver
+
+logging.level.org.springframework.cloud.task: DEBUG
+spring.application.name: helloWorld

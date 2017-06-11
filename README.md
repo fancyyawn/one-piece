@@ -6,9 +6,9 @@
 ## ms-common: 微服务中的通用服务
 
 ### ms-config: 配置服务
-* spring-cloud-config-server：配置的服务端
-* spring-cloud-starter-bus-amqp: 使配置可以动态更新
-* spring-cloud-starter-config: 配置的消费端，如blog/blog-service-post
+- spring-cloud-config-server：配置的服务端
+- spring-cloud-starter-bus-amqp: 使配置可以动态更新
+- spring-cloud-starter-config: 配置的消费端，如blog/blog-service-post
 
 
 ### ms-discovery-eureka: 基于eureka的服务注册与发现
