@@ -1,6 +1,0 @@
-spring:
-  application:
-    name: blog-user
-  cloud:
-    config:
-      uri:  http://localhost:8001

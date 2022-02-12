@@ -1,7 +1,0 @@
-spring:
-  application:
-    name: blog-web
-
----
-server:
-  port: 9000
