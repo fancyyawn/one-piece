@@ -1,9 +1,0 @@
-spring:
-  data:
-    mongodb:
-      uri: mongodb://localhost/zhacker-blog
-server.port: 8900
-server.contextPath: /blog
-logging.level.org.springframework.security: DEBUG
-
-jwt.secret: private_key
